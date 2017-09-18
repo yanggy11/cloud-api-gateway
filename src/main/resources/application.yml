@@ -1,0 +1,14 @@
+server:
+  port: 1987
+spring:
+  application:
+    name: api-gateway
+zuul:
+  routes:
+    api-a:
+      path: /api-user/**
+      serviceId: cloud-service-consumer
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.25.128:1988/eureka/
