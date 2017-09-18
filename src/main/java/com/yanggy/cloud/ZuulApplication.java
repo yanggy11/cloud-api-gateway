@@ -8,6 +8,8 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * Created by yangguiyun on 2017/9/18.
@@ -17,14 +19,28 @@ import org.springframework.context.annotation.Bean;
 @EnableEurekaClient
 @SpringBootApplication
 public class ZuulApplication {
+//    @Bean
+//    public FilterRegistrationBean corsFilterRegistration() {
+//        FilterRegistrationBean registration = new FilterRegistrationBean();
+//        registration.setFilter(new CorsFilter());
+//        registration.addUrlPatterns("/api-user/*");
+//        registration.setName("corsFilter");
+//        registration.setOrder(0);
+//        return registration;
+//    }
+
     @Bean
-    public FilterRegistrationBean corsFilterRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new CorsFilter());
-        registration.addUrlPatterns("/*");
-        registration.setName("corsFilter");
-        registration.setOrder(1);
-        return registration;
+    public FilterRegistrationBean corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        FilterRegistrationBean bean = new FilterRegistrationBean(new org.springframework.web.filter.CorsFilter(source));
+        bean.setOrder(0);
+        return bean;
     }
     public static void main(String[] args) {
         SpringApplication.run(ZuulApplication.class, args);
