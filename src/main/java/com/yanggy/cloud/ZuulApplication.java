@@ -1,6 +1,7 @@
 package com.yanggy.cloud;
 
 import com.yanggy.cloud.filter.CorsFilter;
+import com.yanggy.cloud.filter.ZuulRouteFilter;
 import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,16 +20,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableEurekaClient
 @SpringBootApplication
 public class ZuulApplication {
-//    @Bean
-//    public FilterRegistrationBean corsFilterRegistration() {
-//        FilterRegistrationBean registration = new FilterRegistrationBean();
-//        registration.setFilter(new CorsFilter());
-//        registration.addUrlPatterns("/api-user/*");
-//        registration.setName("corsFilter");
-//        registration.setOrder(0);
-//        return registration;
-//    }
-
     @Bean
     public FilterRegistrationBean corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -39,8 +30,13 @@ public class ZuulApplication {
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
         FilterRegistrationBean bean = new FilterRegistrationBean(new org.springframework.web.filter.CorsFilter(source));
-        bean.setOrder(0);
+        bean.setOrder(1);
         return bean;
+    }
+
+    @Bean
+    public ZuulRouteFilter getZuulRouteFilter() {
+        return new ZuulRouteFilter();
     }
     public static void main(String[] args) {
         SpringApplication.run(ZuulApplication.class, args);
