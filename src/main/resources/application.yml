@@ -19,4 +19,4 @@ hystrix:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://192.168.25.128:1988/eureka/
+      defaultZone: http://localhost:1988/eureka/
