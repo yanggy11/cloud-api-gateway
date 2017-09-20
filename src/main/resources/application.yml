@@ -9,6 +9,7 @@ zuul:
       path: /api-user/**
       serviceId: cloud-service-consumer
 
+# set hystrix timeout to 5 seconds in order to avoid the failure of the first request through zuul
 hystrix:
   command:
     default:
