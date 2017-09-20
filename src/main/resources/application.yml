@@ -8,6 +8,14 @@ zuul:
     api-a:
       path: /api-user/**
       serviceId: cloud-service-consumer
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
 eureka:
   client:
     serviceUrl:
