@@ -23,4 +23,4 @@ ribbon:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://192.168.1.101:1988/eureka/
+      defaultZone: http://192.168.1.100:1988/eureka/
