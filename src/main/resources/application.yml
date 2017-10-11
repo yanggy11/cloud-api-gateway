@@ -25,3 +25,10 @@ eureka:
     serviceUrl:
 #      defaultZone: http://192.168.1.100:8761/eureka/
       defaultZone: http://192.168.25.128:8761/eureka/
+security:
+  basic:
+    enabled: false
+management:
+#  context-path: /${spring.application.name}}
+  security:
+    enabled: false
