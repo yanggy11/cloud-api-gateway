@@ -115,21 +115,4 @@ public class DataSourceProperties {
     public DataSourceProperties() {
         super();
     }
-
-    @Override
-    public String toString() {
-        return "DataSourceProperties{" +
-                "type='" + type + '\'' +
-                ", driver='" + driver + '\'' +
-                ", url='" + url + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", initialSize=" + initialSize +
-                ", minIdle=" + minIdle +
-                ", maxActive=" + maxActive +
-                ", maxWait=" + maxWait +
-                ", timeBetweenEvictionRunsMillis=" + timeBetweenEvictionRunsMillis +
-                ", minEvictableIdleTimeMillis=" + minEvictableIdleTimeMillis +
-                '}';
-    }
 }
