@@ -1,6 +1,5 @@
 package com.yanggy.cloud;
 
-import com.yanggy.cloud.filter.ZuulRouteFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -32,10 +31,6 @@ public class ZuulApplication {
         return bean;
     }
 
-    @Bean
-    public ZuulRouteFilter getZuulRouteFilter() {
-        return new ZuulRouteFilter();
-    }
     public static void main(String[] args) {
         SpringApplication.run(ZuulApplication.class, args);
     }

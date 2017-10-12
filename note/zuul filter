@@ -1,0 +1,33 @@
+Zuul的过滤器主要定义了四种不同生命周期的过滤器类型：
+
+类型	 描述
+pre	     可以在请求被路由之前调用
+routing	 在路由请求时候被调用
+post	 在routing和error过滤器之后被调用
+error	 处理请求时发生错误时被调用
+
+PRE:
+名称	                        顺序	用途
+ServletDetectionFilter	        -3	    判断后续处理的Servlet:DispatcherServlet（Spting）、ZuulServlet（zuul）
+Servlet30WrapperFilter	        -2	    将原始的HttpServletRequest封装成Servlet30RequestWrapper对象
+FormBodyWrapperFilter	        -1	    将Servlet30RequestWrapper封装成FormBodyRequestWrapper对象
+DebugFilter	                    1	    处理请求中是否带debug参数，来开启后续过滤器是否打印调试信息
+PreDecorationFilter	            5	    最核心的也是最后一个PRE过滤器，此处查询路由配置，在请求中设置转发信息
+
+ROUTING:
+名称	                       顺序	    用途
+RibbonRoutingFilter	           10	    处理Cloud服务类型的路由配置
+SimpleHostRoutingFilter	       100	    处理代理地址连接类型的路由配置
+SendForwardFilter	           500	    处理转发类型的路由配置
+
+POST:
+名称	                      顺序	    用途
+SendErrorFilter	              10	    返回客户端错误响应
+SendResponseFilter	          100	    返回客户端代理结果响应
+
+启动流程
+Spring Cloud提供了网关的自动配置（ZuulProxyConfiguration），自动配置主要实现如下功能：
+
+读取yml中的路由配置
+根据路由配置生成RouteLocator，提供给PreDecorationFilter根据URL查找对于的路由配置
+初始化上述列表中的各阶段过滤器

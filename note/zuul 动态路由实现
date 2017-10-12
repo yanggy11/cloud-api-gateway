@@ -1,0 +1,7 @@
+动态路由保存到mysql 数据库
+
+1.自定义RouteLocator, 继承SimpleRouteLocator RefreshableRouteLocator 接口
+见DynamicRouteLocator
+
+2.配置DynamicRouteLocator
+见DynamicZuulConfig
