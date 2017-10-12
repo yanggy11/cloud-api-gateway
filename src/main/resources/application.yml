@@ -5,9 +5,12 @@ spring:
     name: api-gateway
 zuul:
   routes:
-    api-a:
-      path: /api-user/**
+    consumer:
+      path: /consumer/**
       serviceId: cloud-service-consumer
+    users:
+      path: /users/**
+      serviceId: cloud-service-provider
 
 hystrix:
   command:
