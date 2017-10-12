@@ -19,6 +19,7 @@ import java.util.Map;
  * @Author: yangguiyun
  * @Date: 2017/10/12 15:33
  * @Description:
+ *     Custom RouteLocator, implements readming routes from mysql and refresh dynamically
  */
 public class DynamicRouteLocator extends SimpleRouteLocator implements RefreshableRouteLocator {
     public final static Logger logger = LoggerFactory.getLogger(DynamicRouteLocator.class);
@@ -45,11 +46,10 @@ public class DynamicRouteLocator extends SimpleRouteLocator implements Refreshab
     @Override
     protected Map<String, ZuulRoute> locateRoutes() {
         LinkedHashMap<String, ZuulRoute> routesMap = new LinkedHashMap<String, ZuulRoute>();
-        //从application.properties中加载路由信息
+        // load routes from application.properties
         routesMap.putAll(super.locateRoutes());
-        //从db中加载路由信息
-        routesMap.putAll(locateRoutesFromDB());
-        //优化一下配置
+        // load routes from mysql database
+        routesMap.putAll(locateRoutesFromMySql());
         LinkedHashMap<String, ZuulRoute> values = new LinkedHashMap<>();
         for (Map.Entry<String, ZuulRoute> entry : routesMap.entrySet()) {
             String path = entry.getKey();
@@ -70,14 +70,17 @@ public class DynamicRouteLocator extends SimpleRouteLocator implements Refreshab
         return values;
     }
 
-    private Map<String, ZuulRoute> locateRoutesFromDB(){
+    /**
+     * load routes info from MySql
+     * @return
+     */
+    private Map<String, ZuulRoute> locateRoutesFromMySql(){
         Map<String, ZuulRoute> routes = new LinkedHashMap<>();
         List<Route> results = jdbcTemplate.query("select * from dynamic_route where enabled = true",new BeanPropertyRowMapper<>(Route.class));
         for (Route result : results) {
             ZuulRoute zuulRoute = new ZuulRoute();
             try {
                 BeanUtils.copyProperties(result,zuulRoute);
-                zuulRoute.setId(result.getServiceId());
             } catch (Exception e) {
                 logger.error("=============load zuul route info from db with error==============",e);
             }
