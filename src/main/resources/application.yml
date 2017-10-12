@@ -4,6 +4,7 @@ spring:
   application:
     name: api-gateway
 zuul:
+  ignoredServices: '*'
   routes:
     consumer:
       path: /consumer/**
