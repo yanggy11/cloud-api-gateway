@@ -45,3 +45,8 @@ management:
 #  context-path: /${spring.application.name}}
   security:
     enabled: false
+jwt:
+  header: Authorization
+  secret: derrick.yang
+  expiration: 604800
+  tokenHead: "Bearer "

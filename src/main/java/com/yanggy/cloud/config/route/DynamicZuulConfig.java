@@ -1,4 +1,4 @@
-package com.yanggy.cloud.route;
+package com.yanggy.cloud.config.route;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;

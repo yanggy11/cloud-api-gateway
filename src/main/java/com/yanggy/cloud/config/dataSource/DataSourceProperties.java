@@ -1,4 +1,4 @@
-package com.yanggy.cloud.config;
+package com.yanggy.cloud.config.dataSource;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

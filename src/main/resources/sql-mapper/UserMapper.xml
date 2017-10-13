@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanggy.cloud.mapper.UserMapper">
+    <resultMap id="userMap" type="com.yanggy.cloud.entity.User">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="userMap">
+        SELECT id,name,password,age,sex FROM users WHERE id = #{id}
+    </select>
+
+    <insert id="insertUser">
+        INSERT INTO users(name,password, age, sex) VALUES(#{name},#{password}, #{age}, #{sex})
+    </insert>
+
+    <select id="findByName" parameterType="java.lang.String" resultMap="userMap">
+        select id,name,password,age,sex from users where name = #{username}
+    </select>
+    <select id="findByNameAndPassword" resultMap="userMap">
+        select id,name,password,age,sex from users where name = #{username} and password = #{password}
+    </select>
+
+    <select id="getUserList" resultMap="userMap">
+        select id, name,password,sex,age from users
+    </select>
+
+    <select id="getUserRoles" parameterType="java.lang.Long" resultType="java.lang.String">
+        select r.role from role r left join user_role ur on r.id = ur.role_id where ur.user_id = #{userId}
+    </select>
+
+    <insert id="insertUserRole" parameterType="java.util.List">
+        insert into user_role(user_id, role_id) values
+        <foreach collection="list" item="item"  index="index" separator=",">
+            (#{userId},#{roleId})
+        </foreach>
+    </insert>
+</mapper>

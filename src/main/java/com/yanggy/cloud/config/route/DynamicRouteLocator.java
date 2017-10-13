@@ -1,4 +1,4 @@
-package com.yanggy.cloud.route;
+package com.yanggy.cloud.config.route;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
