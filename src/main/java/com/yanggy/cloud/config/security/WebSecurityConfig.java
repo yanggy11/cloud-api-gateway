@@ -71,8 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js",
                         "/**/*.png",
-                        "/springboot/**",
-                        "/api/journal/**",
+                        "/api/journal/**","/info","/trace","/health","/beans",
                         "/api/notifications/**",
                         "/auditevents","/api/applications/**"
                 ).permitAll()
