@@ -4,6 +4,7 @@ import com.yanggy.cloud.config.jwt.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -66,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.png", "/api/journal/**","/info","/trace","/health","/beans","/env","/metrics","/refresh","/auditevents","/jolokia/**","/heapdump","/threads",
                          "/api/applications/**","/features ","/archaius","/auditevents","/mappings","/resume","/configprops","/restart","/routes","/loggers","/api/notifications/**"
                 ).permitAll()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/auth/**").permitAll().antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
         // 禁用缓存
         httpSecurity.headers().cacheControl();
