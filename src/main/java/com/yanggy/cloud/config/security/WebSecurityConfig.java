@@ -62,18 +62,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers(
-                        "/",
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.ttf",
-                        "/**/*.woff2",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/**/*.png",
-                        "/api/journal/**","/info","/trace","/health","/beans",
-                        "/api/notifications/**",
-                        "/auditevents","/api/applications/**"
+                        "/", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.ttf", "/**/*.woff2", "/**/*.css", "/**/*.js", "/api/notifications/**",
+                        "/**/*.png", "/api/journal/**","/info","/trace","/health","/beans","/env","/metrics","/refresh","/auditevents","/jolokia/**","/heapdump","/threads",
+                         "/api/applications/**","/features ","/archaius","/auditevents","/mappings","/resume","/configprops","/restart","/routes","/loggers","/api/notifications/**"
                 ).permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated();
