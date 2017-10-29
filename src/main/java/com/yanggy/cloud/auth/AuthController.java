@@ -5,6 +5,7 @@ import com.yanggy.cloud.config.jwt.JwtTokenUtil;
 import com.yanggy.cloud.dto.ResponseEntity;
 import com.yanggy.cloud.mapper.UserMapper;
 import com.yanggy.cloud.param.UserParam;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,6 +61,19 @@ public class AuthController {
 
 
         return new ResponseEntity<>(map);
+    }
+
+    @PostMapping(value = "validToken")
+    public ResponseEntity<?> validToken(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        if(StringUtils.isEmpty(token)) {
+            return new ResponseEntity<>("0","","00000001");
+        }
+        if(StringUtils.isEmpty(jwtTokenUtil.getUsernameFromToken(token))){
+            return new ResponseEntity<>("0","","00000001");
+        }
+
+        return new ResponseEntity<>();
     }
 
 }
