@@ -10,7 +10,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,7 +43,12 @@ public class AuthController {
     @PostMapping(value="login")
     public ResponseEntity<?> login(@RequestBody UserParam userParam) {
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(userParam.getName(), userParam.getPassword());
-        final Authentication authentication = authenticationManager.authenticate(upToken);
+         Authentication authentication = null;
+        try {
+            authentication = authenticationManager.authenticate(upToken);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
         JWTUser jwtUser = (JWTUser) authentication.getPrincipal();
         final String token = this.tokenHead + jwtTokenUtil.generateToken(jwtUser);
