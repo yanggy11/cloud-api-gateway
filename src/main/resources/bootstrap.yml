@@ -16,7 +16,8 @@ spring:
         service-id: cloud-config
 zuul:
   ignoredServices: '*'
-
+    Consumer: CLOUD-CONSUMER
+Consumer/users/list
 hystrix:
   command:
     default:
