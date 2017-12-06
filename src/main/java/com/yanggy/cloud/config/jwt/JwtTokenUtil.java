@@ -108,12 +108,6 @@ public class JwtTokenUtil implements Serializable {
                 .compact();
     }
 
-    public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
-        final Date created = getCreatedDateFromToken(token);
-        return !isCreatedBeforeLastPasswordReset(created, lastPasswordReset)
-                && !isTokenExpired(token);
-    }
-
     public String refreshToken(String token) {
         String refreshedToken;
         try {
@@ -130,7 +124,6 @@ public class JwtTokenUtil implements Serializable {
         JWTUser user = (JWTUser) userDetails;
         final String username = getUsernameFromToken(token);
         final Date created = getCreatedDateFromToken(token);
-        //final Date expiration = getExpirationDateFromToken(token);
         return (
                 username.equals(user.getUsername())
                         && !isTokenExpired(token)
