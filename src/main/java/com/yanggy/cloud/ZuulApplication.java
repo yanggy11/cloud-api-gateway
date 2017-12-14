@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.List;
+
 /**
  * Created by yangguiyun on 2017/9/18.
  */

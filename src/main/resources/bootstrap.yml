@@ -5,19 +5,14 @@ spring:
     name: api-gateway
   cloud:
     config:
-#      uri: http://192.168.1.100:8887 # config server
-#      uri: http://192.168.25.128:8887 # config server
       name: cloud-config # 要读取的配置文件application属性
-      profile: ${config.profile:test} # default config profile
+      profile: ${config.profile:dd} # default config profile
       username: yanggy11
       password: ygy591932230
       discovery: # 配置中心高可用
         enabled: true
         service-id: cloud-config
-zuul:
-  ignoredServices: '*'
-    Consumer: CLOUD-CONSUMER
-Consumer/users/list
+
 hystrix:
   command:
     default:
@@ -32,8 +27,8 @@ ribbon:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://192.168.1.100:8761/eureka/
-#      defaultZone: http://192.168.25.128:8761/eureka/
+#      defaultZone: http://192.168.1.100:8761/eureka/
+      defaultZone: http://localhost:8000/eureka/
 security:
   basic:
     enabled: false
