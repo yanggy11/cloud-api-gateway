@@ -12,6 +12,11 @@ spring:
       discovery: # 配置中心高可用
         enabled: true
         service-id: cloud-config
+  rabbitmq:
+      host: 192.168.33.82
+      port: 5672
+      username: admin
+      password: admin
   sleuth:
     sampler:
       percentage: 1.0
