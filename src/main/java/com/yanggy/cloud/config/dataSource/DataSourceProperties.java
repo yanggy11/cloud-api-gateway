@@ -1,12 +1,15 @@
 package com.yanggy.cloud.config.dataSource;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by yangguiyun on 2017/9/21.
  */
 
+
+@RefreshScope
 @Component
 @ConfigurationProperties(prefix = DataSourceProperties.PREFIX, ignoreUnknownFields = false)
 public class DataSourceProperties {
