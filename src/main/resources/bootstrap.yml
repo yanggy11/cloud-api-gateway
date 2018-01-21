@@ -5,13 +5,14 @@ spring:
     name: api-gateway
   cloud:
     config:
+      uri: http://39.107.97.132:8887 # config server
       name: cloud-config # 要读取的配置文件application属性
       profile: ${config.profile:test} # default config profile
       username: yanggy11
       password: ygy591932230
-      discovery: # 配置中心高可用
-        enabled: true
-        service-id: cloud-config
+#      discovery: # 配置中心高可用
+#        enabled: true
+#        service-id: cloud-config
     bus:
       trace:
         enabled: true
@@ -41,7 +42,7 @@ eureka:
   client:
     serviceUrl:
 #      defaultZone: http://192.168.1.100:8761/eureka/
-      defaultZone: http://localhost:8000/eureka/
+      defaultZone: http://39.107.97.132:8000/eureka/
 security:
   basic:
     enabled: false
