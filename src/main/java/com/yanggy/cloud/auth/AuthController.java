@@ -8,6 +8,7 @@ import com.yanggy.cloud.param.UserParam;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,19 +47,22 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody UserParam userParam) {
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(userParam.getName(), userParam.getPassword());
          Authentication authentication = null;
+        Map map = new HashMap();
         try {
             authentication = authenticationManager.authenticate(upToken);
+            JWTUser jwtUser = (JWTUser) authentication.getPrincipal();
+            final String token = this.tokenHead + jwtTokenUtil.generateToken(jwtUser);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            map.put("token",token);
+            map.put("user", jwtUser);
+        }catch (BadCredentialsException e) {
+            e.printStackTrace();
+            map.put("message","用户名或密码错误");
+
         }catch (Exception e) {
             e.printStackTrace();
+            map.put("message","未知错误，请联系开发人员！！");
         }
-
-        JWTUser jwtUser = (JWTUser) authentication.getPrincipal();
-        final String token = this.tokenHead + jwtTokenUtil.generateToken(jwtUser);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        Map map = new HashMap();
-        map.put("token",token);
-        map.put("user", jwtUser);
-
 
         return new ResponseEntity<>(map);
     }
