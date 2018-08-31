@@ -1,10 +1,7 @@
 package com.yanggy.cloud.config.jwt;
 
-import com.sun.tools.javac.util.List;
 import com.yanggy.cloud.entity.User;
 import com.yanggy.cloud.mapper.UserMapper;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
