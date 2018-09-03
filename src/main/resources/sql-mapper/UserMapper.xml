@@ -18,7 +18,7 @@
     </insert>
 
     <select id="findByName" parameterType="java.lang.String" resultMap="userMap">
-        select id,name,password,age,sex from users where name = #{username}
+        select id,name,password,age,sex,avater from users where name = #{username}
     </select>
     <select id="findByNameAndPassword" resultMap="userMap">
         select id,name,password,age,sex from users where name = #{username} and password = #{password}

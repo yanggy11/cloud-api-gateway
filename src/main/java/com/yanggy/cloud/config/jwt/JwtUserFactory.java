@@ -21,7 +21,8 @@ public class JwtUserFactory {
                 user.getPassword(),
                 null,
                 mapToGrantedAuthorities(roles),
-               null
+               null,
+                user.getAvater()
         );
     }
 

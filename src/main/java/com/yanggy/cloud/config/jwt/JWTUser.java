@@ -15,6 +15,7 @@ public class JWTUser implements UserDetails {
     private  String password;
     private  String email;
     private  String phone;
+    private  String avater;
     private  Collection<? extends GrantedAuthority> authorities;
     private  Date lastPasswordResetDate;
     public JWTUser(
@@ -23,13 +24,15 @@ public class JWTUser implements UserDetails {
             String password,
             String email,
             Collection<? extends GrantedAuthority> authorities,
-            Date lastPasswordResetDate) {
+            Date lastPasswordResetDate,
+            String avater) {
         this.userId = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.authorities = authorities;
         this.lastPasswordResetDate = lastPasswordResetDate;
+        this.avater = avater;
     }
 
     @Override
@@ -77,5 +80,13 @@ public class JWTUser implements UserDetails {
 
     public long getUserId() {
         return userId;
+    }
+
+    public void setAvater(String avater) {
+        this.avater = avater;
+    }
+
+    public String getAvater() {
+        return avater;
     }
 }
