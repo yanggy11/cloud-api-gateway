@@ -1,7 +1,10 @@
 package com.yanggy.cloud.auth;
 
+import com.yanggy.cloud.config.enums.ErrorCode;
 import com.yanggy.cloud.config.jwt.JWTUser;
 import com.yanggy.cloud.config.jwt.JwtTokenUtil;
+import com.yanggy.cloud.config.utils.ResponseEntityBuilder;
+import com.yanggy.cloud.config.utils.ResponseEntityDto;
 import com.yanggy.cloud.dto.ResponseEntity;
 import com.yanggy.cloud.mapper.UserMapper;
 import com.yanggy.cloud.param.UserParam;
@@ -42,9 +45,11 @@ public class AuthController {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
     @PostMapping(value="login")
-    public ResponseEntity<?> login(@RequestBody UserParam userParam) {
+    public ResponseEntityDto<?> login(@RequestBody UserParam userParam) {
+
+        ResponseEntityDto<?> res = null;
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(userParam.getName(), userParam.getPassword());
-         Authentication authentication = null;
+        Authentication authentication = null;
         Map map = new HashMap();
         try {
             authentication = authenticationManager.authenticate(upToken);
@@ -53,15 +58,19 @@ public class AuthController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             map.put("token",token);
             map.put("user", jwtUser);
+
+            res = ResponseEntityBuilder.buildNormalResponseEntity(map);
         }catch (BadCredentialsException e) {
             e.printStackTrace();
-            map.put("message","用户名或密码错误");
+
+            res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.USER_NAME_PASSWORD_ERROR);
 
         }catch (Exception e) {
             e.printStackTrace();
-            map.put("message","未知错误，请联系开发人员！！");
+
+            res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.UNKONWN_ERROR);
         }
 
-        return new ResponseEntity<>(map);
+        return res;
     }
 }
