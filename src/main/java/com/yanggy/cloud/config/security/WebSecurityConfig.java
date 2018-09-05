@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.png", "/api/journal/**","/info","/trace","/health","/beans","/env","/metrics","/refresh","/auditevents","/jolokia/**","/heapdump","/threads",
                          "/api/applications/**","/features ","/archaius","/auditevents","/mappings","/resume","/configprops","/restart","/routes","/loggers","/api/notifications/**"
                 ).permitAll()
-                .antMatchers("/auth/**").permitAll().antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers("/api/auth/**").permitAll().antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
         // 禁用缓存
         httpSecurity.headers().cacheControl();
